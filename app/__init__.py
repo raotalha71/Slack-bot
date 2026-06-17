@@ -1,0 +1,1 @@
+# Slack AI Proposal Generator

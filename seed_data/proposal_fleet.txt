@@ -1,0 +1,90 @@
+PROPOSAL — FLEET AND DELIVERY OPERATIONS PLATFORM
+Prepared for: Pinnacle Last-Mile Logistics
+Prepared by: empowrd.ai
+Date: March 2026
+Confidential
+
+---
+
+EXECUTIVE SUMMARY
+
+Pinnacle Last-Mile Logistics operates a fleet of 85 delivery vehicles across five depot locations serving the greater Dallas-Fort Worth metro area. The company handles approximately 4,200 deliveries per day for a mix of e-commerce, grocery, and pharmaceutical clients.
+
+Dispatch operations are currently managed through a combination of a legacy route planning tool, manual load manifests printed each morning, and driver communication via WhatsApp groups. Depot managers have no visibility into delivery status during the day unless they call drivers directly. Client service teams handle approximately 90 inbound status calls per day that could be eliminated with automated tracking.
+
+Failed deliveries — where no one is home or access is denied — are currently logged by drivers on paper and re-entered into the system at end of day, creating a 6-8 hour window where failed deliveries are invisible to the operations team and cannot be rescheduled.
+
+This proposal covers a real-time fleet and delivery operations platform that gives depot managers live visibility across all vehicles and deliveries, automates client tracking notifications, and closes the failed delivery gap to under 15 minutes.
+
+---
+
+PROPOSED SOLUTION
+
+A dispatcher web application replaces the manual morning manifest process. Routes are built in the system and pushed directly to driver mobile devices. Drivers confirm pickup, report delivery outcomes (successful, failed, partial), and capture proof of delivery (photo and signature) in a mobile app that works offline and syncs on connectivity.
+
+Depot managers see a live map of all vehicles and delivery statuses across their depot. A cross-depot view allows operations leadership to monitor all five depots simultaneously.
+
+Clients receive automated delivery notifications at dispatch, estimated arrival (60 minutes before), and on delivery completion. Failed deliveries trigger an immediate notification to the client and an automatic rescheduling prompt.
+
+---
+
+TIMELINE
+
+Month 1: Core data model, driver mobile app (offline-capable)
+Month 2: Dispatcher web application and route management
+Month 3: Real-time depot and operations dashboard
+Month 4: Client notification system and failed delivery workflow
+Month 5: Integration with existing billing system (QuickBooks), reporting
+Month 6: Rollout across all five depots and driver training
+
+---
+
+BUDGET
+
+Total project cost: $89,500
+Breakdown:
+- Driver mobile application: $26,000
+- Dispatcher web application: $22,000
+- Real-time operations dashboard: $18,000
+- Client notification system: $11,000
+- QuickBooks integration: $7,500
+- Training and rollout support: $5,000
+
+Ongoing support: $3,800/month
+
+---
+
+INTEGRATIONS
+
+QuickBooks: delivery billing reconciliation
+Google Maps Platform: routing and ETA calculation
+Twilio: SMS client notifications
+No WMS or warehouse integration in scope.
+
+---
+
+OFFLINE CAPABILITY
+
+The driver mobile app is designed to function without internet connectivity. Delivery outcomes, photos, and signatures are stored locally and synced automatically when the device reconnects. Drivers in low-connectivity areas (basement parking, rural routes) are fully supported.
+
+---
+
+DELIVERABLES
+
+- Driver mobile application (iOS and Android browser, no installation)
+- Dispatcher route management application
+- Real-time depot and cross-depot operations dashboard
+- Automated client notification system (dispatch, ETA, delivery, failed)
+- Failed delivery rescheduling workflow
+- QuickBooks billing integration
+- Proof of delivery capture (photo and signature)
+- Driver and dispatcher training across all five depots
+
+---
+
+NEXT STEPS
+
+1. QuickBooks API credentials and billing workflow documented
+2. 5 drivers selected for mobile app pilot before full rollout
+3. Client notification preferences confirmed with two key accounts
+4. Development begins following sign-off

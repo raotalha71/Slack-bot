@@ -1,0 +1,87 @@
+PROPOSAL — WAREHOUSE OPERATIONS AND DISTRIBUTION PLATFORM
+Prepared for: Summit Food Distribution
+Prepared by: empowrd.ai
+Date: January 2026
+Confidential
+
+---
+
+EXECUTIVE SUMMARY
+
+Summit Food Distribution operates four cold-storage warehouses across the Pacific Northwest serving approximately 300 restaurant and foodservice clients. Their current operations depend on a combination of a 12-year-old warehouse management system (WMS) and manual processes for order picking, dispatch scheduling, and client communication.
+
+The primary pain points are threefold. First, the legacy WMS has no API, making integration with any modern tooling impossible without manual data entry. Second, dispatch schedules are built in Excel and shared via email, meaning drivers receive updates by phone call rather than automatically. Third, clients have no self-service visibility into their orders — all status queries come through the operations team by phone and email, consuming approximately 25 staff-hours per week.
+
+Summit is not willing to replace the legacy WMS at this time due to cost and staff familiarity. This proposal outlines a platform layer that sits alongside the existing WMS, modernises the dispatch and client communication workflows, and provides management with consolidated operational visibility.
+
+---
+
+PROPOSED SOLUTION
+
+A lightweight integration layer reads from the legacy WMS via daily scheduled exports (CSV format, which the WMS supports). This data feeds a modern operations platform that handles dispatch scheduling, driver communication, and client self-service.
+
+Dispatchers build routes in a web-based scheduling tool that replaces the Excel process. Routes are assigned to drivers who receive their schedule and any updates via a simple mobile web app (no installation required). Clients receive automated order confirmation, dispatch notification, and estimated delivery window via email and SMS.
+
+A client portal allows foodservice clients to view their order history, track current deliveries, and submit new orders directly — reducing inbound phone and email volume.
+
+---
+
+TIMELINE
+
+Month 1: Legacy WMS integration (CSV import pipeline), data model
+Month 2: Dispatch scheduling tool
+Month 3: Driver mobile app and SMS notifications
+Month 4: Client portal and automated communications
+Month 5: Management dashboard and reporting
+Month 6: Full rollout and staff training
+
+---
+
+BUDGET
+
+Total project cost: $83,000
+Breakdown:
+- WMS integration pipeline: $16,000
+- Dispatch scheduling tool: $22,000
+- Driver mobile app: $14,000
+- Client portal: $19,000
+- Automated communications (email/SMS): $6,000
+- Management dashboard: $6,000
+
+Ongoing support: $3,600/month
+
+---
+
+INTEGRATIONS
+
+Legacy WMS: CSV export import (no API available)
+SMS: Twilio
+Email: SendGrid
+Mapping/routing: Google Maps Platform
+
+---
+
+IMPORTANT CONSTRAINT
+
+Because the legacy WMS has no API, the integration relies on daily CSV exports. This means real-time inventory data is not achievable in this phase — data will be updated once per day (overnight). All stakeholders must understand this limitation before go-live. True real-time inventory visibility would require WMS replacement, which is out of scope.
+
+---
+
+DELIVERABLES
+
+- WMS data import pipeline (daily)
+- Dispatch scheduling web application
+- Driver mobile web app with route and update delivery
+- Client self-service portal
+- Automated order confirmation and delivery notifications
+- Management operations dashboard
+- Staff training across all four warehouse locations
+
+---
+
+NEXT STEPS
+
+1. WMS CSV export format confirmed and sample files provided
+2. Client portal requirements validated with 3-4 client contacts
+3. Twilio and SendGrid accounts created by Summit
+4. Development begins following sign-off

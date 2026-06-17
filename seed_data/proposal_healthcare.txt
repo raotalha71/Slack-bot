@@ -1,0 +1,81 @@
+PROPOSAL — PATIENT INTAKE MODERNISATION
+Prepared for: Lakeview Medical Group
+Prepared by: empowrd.ai
+Date: March 2026
+Confidential
+
+---
+
+EXECUTIVE SUMMARY
+
+Lakeview Medical Group operates three clinic locations with a combined 85 staff. New patient intake is currently paper-based, requiring front desk staff to manually key patient data into the practice management system (Athenahealth). This process takes 15-20 minutes per new patient, creates transcription errors, and results in incomplete records that slow down clinical staff.
+
+This proposal outlines the build of a digital patient intake system that allows patients to complete forms on a tablet or their own device before or during their visit, with data flowing directly into Athenahealth. The solution is designed to work within Lakeview's existing HIPAA compliance framework and does not require replacing any current systems.
+
+---
+
+PROPOSED SOLUTION
+
+A mobile-friendly digital intake form replaces the paper process. Patients complete the form on a clinic tablet or their personal device. On submission, data is validated and pushed directly to the relevant Athenahealth patient record via API. Front desk staff receive a notification when a form is complete and can review before finalising.
+
+A simple admin interface allows clinic managers to update form fields, view completion rates, and export intake data for reporting purposes.
+
+---
+
+DATA PRIVACY AND COMPLIANCE
+
+All patient data is encrypted in transit and at rest. The system is designed to meet HIPAA requirements including access controls, audit logging, and data retention policies. A Business Associate Agreement (BAA) will be executed prior to any data being processed.
+
+Data is stored only within US-based infrastructure. No patient data is used for any purpose other than clinical intake. Access is restricted to authorised clinic staff only, with role-based permissions.
+
+The solution includes a full audit log of all data access and modifications, which can be exported on request for compliance reviews.
+
+---
+
+TIMELINE
+
+Week 1-2: Requirements, Athenahealth API access, form design
+Week 3-5: Form builder, validation logic, Athenahealth integration
+Week 6-7: Admin panel and notification system
+Week 8: Staff training and soft launch at one location
+Week 9-10: Full rollout across all three clinics
+
+---
+
+BUDGET
+
+Total project cost: $61,000
+Breakdown:
+- Form and intake system: $28,000
+- Athenahealth integration: $18,000
+- Admin panel: $8,000
+- Compliance documentation, BAA, and training: $7,000
+
+Ongoing support and hosting: $2,800/month
+
+---
+
+DELIVERABLES
+
+- Digital intake form (tablet and mobile optimised)
+- Athenahealth integration (bi-directional)
+- Admin management panel
+- Role-based staff access controls
+- Full audit logging
+- HIPAA compliance documentation
+- Staff training at all three locations
+- Handover documentation
+
+---
+
+NEXT STEPS
+
+1. Client signs BAA and proposal
+2. Lakeview provides Athenahealth sandbox access
+3. Kick-off call with clinical and admin leads
+4. Form field requirements confirmed in Week 1 discovery session
+5. Development begins immediately following kick-off
+
+---
+
+Note: This proposal covers the patient intake workflow only. It does not include appointment scheduling, billing integration, or clinical documentation features. A second phase covering scheduling integration can be scoped once intake is stable.

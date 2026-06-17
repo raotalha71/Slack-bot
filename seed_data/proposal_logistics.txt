@@ -1,0 +1,76 @@
+PROPOSAL — SUPPLY CHAIN VISIBILITY PLATFORM
+Prepared for: Hartwell Logistics Inc.
+Prepared by: empowrd.ai
+Date: January 2026
+Confidential
+
+---
+
+EXECUTIVE SUMMARY
+
+Hartwell Logistics operates six distribution hubs across the Midwest with approximately 200 staff. Over the past three years, rapid growth has outpaced the company's internal tooling. Inventory data lives in disconnected systems at each hub, reporting is manual and time-consuming, and operational decisions are being made without real-time visibility across the network.
+
+This proposal outlines a phased approach to building a unified supply chain visibility platform that connects all six hubs, automates routine reporting, and provides leadership with a real-time operational dashboard. The solution is designed to integrate with Hartwell's existing ERP (SAP Business One) and avoid a full system replacement.
+
+---
+
+PROPOSED SOLUTION
+
+Phase 1 — Data Integration Layer (Months 1-2)
+Build a lightweight integration layer that pulls inventory data from each hub's existing system into a central database. No hub systems are replaced. Data syncs every 15 minutes. A simple internal dashboard shows consolidated inventory across all locations.
+
+Phase 2 — Reporting Automation (Month 3)
+Replace the current manual Monday reporting process with automated weekly and daily ops reports generated from the central database. Reports delivered via email and accessible through the dashboard.
+
+Phase 3 — Alerting and Workflow (Months 4-5)
+Add low-stock alerts, cross-hub transfer recommendations, and a simple approval workflow for inter-hub inventory moves.
+
+---
+
+TIMELINE
+
+Month 1-2: Integration layer and central database
+Month 3: Automated reporting
+Month 4-5: Alerting, workflows, and staff training
+Month 6: Stabilisation and handover
+
+---
+
+BUDGET
+
+Total project cost: $72,000
+Breakdown:
+- Integration development: $32,000
+- Dashboard and reporting: $24,000
+- Training and documentation: $8,000
+- Project management: $8,000
+
+Ongoing support available at $3,500/month post-launch.
+
+---
+
+TEAM AND DELIVERABLES
+
+Lead engineer: 1 senior developer
+Project manager: part-time throughout
+QA and testing: included in all phases
+
+Deliverables:
+- Centralised inventory database
+- Integration connectors for all 6 hub systems
+- Operations dashboard (web-based, no app required)
+- Automated reporting suite
+- Admin documentation and training sessions
+
+---
+
+NEXT STEPS
+
+1. Client reviews and approves proposal
+2. Kick-off call to confirm technical requirements
+3. Access granted to one hub system for integration scoping
+4. Development begins Week 1 of Month 1
+
+---
+
+Note: This proposal does not include mobile app development, staff scheduling features, or customer-facing interfaces. These can be scoped as a separate phase.

@@ -1,0 +1,67 @@
+PROPOSAL — AUTOMATED RECONCILIATION PLATFORM
+Prepared for: Meridian Payment Solutions
+Prepared by: empowrd.ai
+Date: November 2025
+Confidential
+
+---
+
+EXECUTIVE SUMMARY
+
+Meridian Payment Solutions processes approximately 180,000 transactions per month across four payment rails (card, ACH, wire, and international). Their current reconciliation process is performed by a team of three analysts who manually match transactions between Meridian's internal ledger, bank statements, and payment processor reports. The process takes the team approximately 60 hours per month and has a manual error rate of 0.3%, which at Meridian's transaction volume translates to roughly 540 mismatched transactions requiring correction each month.
+
+As Meridian prepares to launch two new payment products in Q2, transaction volume is expected to grow 40%. The current team cannot absorb this growth without either significant headcount addition or a fundamental change in how reconciliation is performed.
+
+This proposal outlines an automated reconciliation platform that handles routine matching automatically, surfaces exceptions for human review, and reduces the analyst team's monthly workload from 60 hours to an estimated 8-12 hours.
+
+---
+
+PROPOSED SOLUTION
+
+An automated matching engine ingests transaction data from all four sources daily via API and file import. It applies a configurable matching ruleset to identify confirmed matches, probable matches, and exceptions. Confirmed matches are posted automatically. Probable matches are presented to analysts in a review queue with a suggested action. Exceptions requiring investigation are flagged with context and routed to the appropriate analyst.
+
+A management dashboard provides daily reconciliation status, exception trends, and SLA tracking. Monthly reports are generated automatically and delivered to finance leadership.
+
+---
+
+COMPLIANCE AND AUDIT
+
+All reconciliation decisions — automated and manual — are logged with full audit trail including the matching rule applied, the analyst who reviewed, and the timestamp. Audit logs are retained for seven years and exportable in CSV and PDF format for regulatory review.
+
+The system is designed to meet SOC 2 Type II requirements. A security review will be conducted before go-live.
+
+---
+
+TIMELINE
+
+Month 1: Data source integration and matching engine core
+Month 2: Review queue and exception management
+Month 3: Management dashboard and automated reporting
+Month 4: Parallel run alongside manual process, calibration
+Month 5: Full cutover and analyst training
+
+---
+
+BUDGET
+
+Total project cost: $78,000
+Breakdown:
+- Matching engine development: $34,000
+- Data integrations (4 sources): $18,000
+- Review queue and dashboard: $16,000
+- Audit logging and compliance: $6,000
+- Training and documentation: $4,000
+
+Ongoing support: $3,100/month
+
+---
+
+NEXT STEPS
+
+1. Client provides sample transaction data from all four rails for matching rule design
+2. Security and compliance requirements confirmed with Meridian's compliance team
+3. Development begins Week 1 following sign-off
+
+---
+
+Note: The parallel run period in Month 4 is non-negotiable. Automated reconciliation must be validated against manual results before the manual process is retired.

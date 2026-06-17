@@ -1,0 +1,85 @@
+PROPOSAL — FIELD OPERATIONS MANAGEMENT PLATFORM
+Prepared for: Caldwell Construction Group
+Prepared by: empowrd.ai
+Date: December 2025
+Confidential
+
+---
+
+EXECUTIVE SUMMARY
+
+Caldwell Construction Group manages 12 active project sites across three states with approximately 180 field staff. Project managers at each site currently track daily progress, materials usage, and subcontractor activity in a mix of WhatsApp messages, spreadsheets, and paper daily logs. Head office has no visibility into site status without calling individual project managers, and by the time issues are escalated they have typically already caused delays.
+
+Materials procurement is disconnected from site progress reporting, resulting in both stockouts (materials not arriving when needed) and over-ordering (materials sitting on site past their use window, creating theft and waste risk).
+
+This proposal covers a field operations platform that gives head office real-time visibility across all sites, standardises daily reporting, and connects materials orders to actual project progress.
+
+---
+
+PROPOSED SOLUTION
+
+A mobile-first web application used by project managers and site supervisors to submit daily progress reports, log materials usage, and flag issues requiring head office attention. Reports take under five minutes to complete on a phone or tablet with no special training required.
+
+Head office sees a consolidated dashboard showing all 12 sites: daily progress against schedule, materials status, open issues, and subcontractor attendance. Automated alerts notify the relevant head office manager when a site falls behind schedule or flags a critical issue.
+
+A materials module connects procurement requests from sites to the central purchasing team. When a project manager requests materials the request is reviewed and approved centrally before an order is placed, eliminating duplicate and unauthorised orders.
+
+---
+
+TIMELINE
+
+Month 1-2: Mobile reporting app and head office dashboard
+Month 3: Issue tracking and automated alerts
+Month 4: Materials procurement module
+Month 5: Integration with Xero (accounting) and pilot on 3 sites
+Month 6: Full rollout across all 12 sites
+
+---
+
+BUDGET
+
+Total project cost: $67,500
+Breakdown:
+- Mobile reporting application: $24,000
+- Head office dashboard: $18,000
+- Materials procurement module: $14,000
+- Xero integration: $6,000
+- Training and rollout support: $5,500
+
+Ongoing support: $2,800/month
+
+---
+
+INTEGRATIONS
+
+Xero: financial reporting and purchase order management
+No other integrations in scope for this phase.
+
+---
+
+KEY DESIGN DECISIONS
+
+The application is intentionally simple. Field staff are not technical and many work in areas with poor connectivity. The reporting form works offline and syncs when connectivity is restored. No native app installation is required — it runs in any mobile browser.
+
+We recommend against integrating with the existing project scheduling software (MS Project) in this phase. The data structures are incompatible and the integration effort would double the project cost without proportional benefit. A read-only export from MS Project can be used to populate baseline schedules manually.
+
+---
+
+DELIVERABLES
+
+- Mobile-first reporting application (iOS and Android browser)
+- Head office consolidated dashboard
+- Issue tracking and escalation workflow
+- Materials procurement request and approval module
+- Xero integration
+- Training sessions for project managers and head office staff
+- Admin documentation
+
+---
+
+NEXT STEPS
+
+1. Workshop with 2-3 project managers to validate reporting form design
+2. Head office requirements confirmed for dashboard views
+3. Xero API access granted
+4. Development begins following sign-off

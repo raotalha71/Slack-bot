@@ -1,0 +1,77 @@
+CLIENT DISCOVERY CALL TRANSCRIPT
+Company: Brightline Retail Group
+Date: May 14, 2026
+Participants: Sarah Okafor (Consultant), Marcus Webb (CEO, Brightline), Jenny Tran (Operations Manager, Brightline)
+
+---
+
+Sarah: Thanks for making time today Marcus, Jenny. So let's just start with the big picture — tell me about where Brightline is right now and what's brought you to this conversation.
+
+Marcus: Sure. So we've been running for about eight years, three warehouse locations — Chicago, Dallas, and we just opened one in Phoenix last year. We're about 140 staff across all three sites. Business is good, honestly. Revenue is up. But the backend operations are a mess and we know it.
+
+Jenny: The inventory side specifically. We're still on a system we built in-house back in 2019 and it was never meant to scale. Right now we have the three warehouses and they basically don't talk to each other. If someone in Chicago wants to know what's in Dallas they're literally calling each other on the phone.
+
+Sarah: How often does that actually cause problems?
+
+Jenny: Daily. Like genuinely daily. We had a situation two months ago where we double-promised the same batch of units to two clients because Dallas didn't know Chicago had already allocated them. That was a painful conversation.
+
+Marcus: Yeah and that's the thing — we can absorb these mistakes right now because the margins are okay. But we're planning to open two more locations by end of next year. Atlanta and probably Seattle. And if we try to do that with this system we're going to start losing clients, not just having awkward conversations.
+
+Sarah: Okay, that's helpful context. So is this primarily an inventory visibility problem, or are there other parts of the operation that are feeling the strain?
+
+Jenny: Mostly inventory. That's the core of it. But the reporting is also bad. We're doing everything in spreadsheets. I spend probably four to five hours every Monday just compiling a weekly ops report that should take twenty minutes if we had decent tooling.
+
+Marcus: And the staff scheduling piece is also getting complicated with five sites but honestly that's lower priority right now. If you can fix the inventory and the reporting we'd be happy.
+
+Sarah: Got it. So what does success look like for you? If we come back in twelve months and this has gone well, what's different?
+
+Marcus: All five locations visible in one place, in real time. No more phone calls between warehouses. And my ops team spending their time on actual problems instead of just compiling data.
+
+Jenny: I'd add — the system needs to be something my team can actually use. We've had consultants come in before and build things that were technically impressive but required a developer to do anything in them. That doesn't work for us.
+
+Sarah: That's really useful to hear. What's your comfort level on the technology side — do you have any in-house developers?
+
+Marcus: We have one guy, Raj. He keeps the existing system running. He's good but he's not going to be building something new from scratch.
+
+Sarah: Okay. And budget — do you have a range in mind, or is that still being figured out?
+
+Marcus: We've set aside fifty thousand for this. That's the number I got signed off on by the board. Fifty. I want to be clear about that upfront so we don't waste each other's time if that's not workable.
+
+Jenny: Actually Marcus, I thought we discussed up to a hundred and twenty? The board approved a range, not a fixed number. I have the email if you want me to pull it up.
+
+Marcus: No, the fifty is the starting point. If the scope genuinely warrants more we can go back to the board but I'm not going in there asking for more than we need.
+
+Jenny: I just don't want us to artificially constrain the solution because of a number that isn't actually fixed. There's a real difference between a fifty thousand dollar system and a hundred thousand dollar system.
+
+Marcus: Fair point. Sarah, let's say the target is fifty but there's flexibility if the approach is right. Does that make sense?
+
+Sarah: It does. I'll build the proposal around the fifty and flag where additional investment would materially change the outcome. That way you have a clear decision to make.
+
+Marcus: That works.
+
+Sarah: And timeline — when do you need this in place?
+
+Marcus: Realistically before we open Atlanta. So that's... we're targeting Q1 next year for Atlanta. So I guess we'd need the system stable by end of Q3 this year? That's roughly five months from now.
+
+Jenny: That might be tight. I've been saying Q4 is probably more realistic. Q3 only works if we start immediately and nothing goes sideways.
+
+Marcus: Yeah, Q3 is the goal but Q4 is where we'd actually land probably.
+
+Sarah: Understood. I'll propose a timeline that targets Q3 with Q4 as the confirmed fallback. Last question for today — are there any specific integrations you need? Anything your current systems connect to that a new solution would need to play nicely with?
+
+Jenny: We use QuickBooks for finance. That's non-negotiable, it has to talk to QuickBooks. And we're on Shopify for the direct-to-consumer side, that's maybe 20% of our volume but it matters.
+
+Marcus: Yeah those two. And if it could connect to whatever shipping software we end up using that would be ideal but we haven't picked one yet so that's more of a future thing.
+
+Sarah: Perfect. I think I have enough to put together an initial proposal. I'll have something over to you within the week.
+
+Marcus: Great. And Sarah — one thing I'll say. We've had two other consultants take a look at this and both of them came back with proposals that were basically "let's rip everything out and start over." We're not interested in that. We want something that works with what we have as much as possible.
+
+Jenny: That's important. Raj built parts of the current system himself. If we tell him everything he built is being thrown away that's going to be a morale problem.
+
+Sarah: Understood. I'll keep that front and center.
+
+---
+
+END OF TRANSCRIPT
+

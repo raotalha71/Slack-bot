@@ -1,0 +1,86 @@
+PROPOSAL — PROJECT AND RESOURCE MANAGEMENT PLATFORM
+Prepared for: Vantage Consulting Partners
+Prepared by: empowrd.ai
+Date: October 2025
+Confidential
+
+---
+
+EXECUTIVE SUMMARY
+
+Vantage Consulting Partners is a 95-person management consulting firm with offices in Boston, Chicago, and Denver. The firm runs approximately 40 active client engagements at any given time. Project tracking, resource allocation, and utilisation reporting are currently managed across three disconnected tools — a project tracking spreadsheet owned by each office's operations coordinator, a shared Harvest account for time tracking, and a Salesforce CRM that holds client and pipeline data but is not connected to active project information.
+
+The result is that firm leadership has no consolidated real-time view of resource utilisation, project health, or revenue recognition across the three offices. Monthly management reports take the three operations coordinators approximately 8 hours each to compile, and the data is typically 3-4 weeks stale by the time it reaches leadership.
+
+This proposal covers a unified project and resource management platform that connects Harvest, Salesforce, and a new project management layer to give leadership consolidated visibility and reduce the monthly reporting burden from 24 staff-hours to under 2.
+
+---
+
+PROPOSED SOLUTION
+
+A central platform pulls data from Harvest (time entries) and Salesforce (clients, projects, contracts) via API on a nightly schedule. Project managers use a simple web interface to update project status, flag risks, and log key milestones. The platform aggregates this data into a real-time leadership dashboard showing utilisation rates by office and practice area, project health status, revenue at risk, and billing pipeline.
+
+Automated monthly reports are generated and distributed to firm leadership and office managing directors without manual compilation.
+
+A resource planning module allows operations coordinators to view upcoming project demand and current consultant availability to support staffing decisions.
+
+---
+
+TIMELINE
+
+Month 1: Harvest and Salesforce integrations, data model
+Month 2: Project status management interface
+Month 3: Leadership dashboard and utilisation reporting
+Month 4: Automated monthly reporting
+Month 5: Resource planning module
+Month 6: Training and rollout across all three offices
+
+---
+
+BUDGET
+
+Total project cost: $71,500
+Breakdown:
+- Harvest and Salesforce integrations: $18,000
+- Project management interface: $16,000
+- Leadership dashboard: $19,000
+- Automated reporting: $8,500
+- Resource planning module: $10,000
+
+Ongoing support: $2,900/month
+
+---
+
+INTEGRATIONS
+
+Harvest: time tracking data via Harvest API v2
+Salesforce: client and contract data via Salesforce REST API
+Email distribution: SendGrid
+No other integrations in scope.
+
+---
+
+DATA CONSIDERATIONS
+
+Historical project data from the existing spreadsheets will be migrated for the most recent 24 months only. Older data can be archived but will not be loaded into the new platform. Migration will be performed by Vantage's operations team using a template we provide — we estimate 3-4 hours of data entry per office.
+
+---
+
+DELIVERABLES
+
+- Harvest and Salesforce integration connectors
+- Project status management web application
+- Leadership consolidated dashboard
+- Automated monthly management reports
+- Resource planning and utilisation module
+- Data migration template and support
+- Training sessions for operations coordinators and project managers
+
+---
+
+NEXT STEPS
+
+1. Harvest and Salesforce API credentials provided
+2. Sample monthly report shared so dashboard can be designed to match existing format
+3. Data migration scope confirmed (24 months confirmed or adjusted)
+4. Development begins following sign-off

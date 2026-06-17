@@ -1,0 +1,60 @@
+PROPOSAL — INVENTORY MANAGEMENT SYSTEM
+Client: Cornerstone Home Goods
+Prepared by: empowrd.ai
+Date: August 2025
+
+---
+
+OVERVIEW
+
+Cornerstone Home Goods is a mid-size retailer with 4 physical stores and a growing e-commerce channel. Their current inventory management is split between a legacy POS system in stores and a separate Shopify backend for online orders. The two systems do not sync, leading to overselling online and stock discrepancies that require manual reconciliation weekly.
+
+The goal of this engagement is to build a unified inventory layer that keeps both channels in sync, reduces manual work, and gives the operations team a single source of truth for stock levels.
+
+---
+
+WHAT WE WILL BUILD
+
+A custom inventory sync engine that sits between the POS system and Shopify. When a sale occurs in either channel, inventory is updated in both within 60 seconds. A web-based admin panel allows the operations team to view real-time stock across all stores and the online channel, manually adjust inventory, and flag items for reorder.
+
+The solution also includes a daily reconciliation report emailed to the ops manager each morning showing any discrepancies identified overnight and how they were resolved.
+
+Technical approach:
+- Central inventory database (PostgreSQL)
+- Event-driven sync using webhooks from both POS and Shopify
+- Admin panel built with React
+- Daily automated report via SendGrid
+
+---
+
+TIMELINE AND COST
+
+Timeline: 10 weeks total
+
+Week 1-2: Discovery, system access, schema design
+Week 3-5: Core sync engine development
+Week 6-7: Admin panel
+Week 8-9: Testing and reconciliation report
+Week 10: Launch and training
+
+Total cost: $48,500
+
+This includes all development, testing, documentation, and two training sessions with the operations team. Post-launch support is available at $2,200/month.
+
+---
+
+INTEGRATIONS
+
+Shopify: via Shopify Admin API
+POS system (Lightspeed): via Lightspeed API
+Email delivery: SendGrid
+No other integrations are in scope for this phase.
+
+---
+
+ASSUMPTIONS
+
+- Client provides API credentials for both Shopify and Lightspeed within the first week
+- One operations team member is available for weekly check-ins throughout the project
+- No changes to the Shopify store or POS configuration during the project
+- Existing stock data will be manually reconciled by the client before go-live

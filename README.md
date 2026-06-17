@@ -17,12 +17,68 @@ A multi-agent AI system that automatically generates professional business propo
 
 ## 🏗 Architecture Overview
 
-The system uses a stateful LangGraph pipeline (`ProposalState`) across two distinct graphs:
+The system uses a stateful LangGraph pipeline (`ProposalState`) across two distinct graphs. 
 
-1. **Generation Graph:**
-   `Slack File Upload` → `Intake Agent` → *(Interrupt: Confirm)* → `Research Agent` → *(Interrupt: Web Search?)* → *(Interrupt: Pick Tone)* → `Writer Agent` → `Smart Save Gate` → `Generate DOCX`
-2. **Revision Graph:**
-   `Slack Thread Reply` → `Revision Agent` (Answers questions via Transcript RAG or edits specific sections) → `Regenerate DOCX`
+```mermaid
+graph TD
+    %% Entities
+    U((Slack User))
+    Q[(Qdrant DB)]
+    W((Tavily Web))
+    
+    %% Graph 1: Generation
+    subgraph Generation Pipeline
+        A1[Agent 1: Intake]
+        I1{{Human: Confirm Info}}
+        A2[Agent 2: Research]
+        I2{{Human: Approve Web Search}}
+        I3{{Human: Pick Tone}}
+        A3[Agent 3: Writer]
+        Gate{Smart Save Gate}
+        Doc1[Generate DOCX]
+    end
+    
+    %% Graph 2: Revision
+    subgraph Revision Pipeline
+        A4[Agent 4: Revision]
+        Doc2[Regenerate DOCX]
+    end
+    
+    %% Flow 1
+    U -- Uploads Transcript --> A1
+    A1 --> I1
+    I1 -. Pause & Ask Slack .-> U
+    U -- Replies 'ok' --> A2
+    
+    A2 -- Queries past proposals --> Q
+    A2 --> I2
+    I2 -. Pause & Ask Slack .-> U
+    U -- Replies yes/no --> I3
+    I2 -- If yes --> W
+    
+    I3 -. Pause & Ask Slack .-> U
+    U -- Replies 1-4 --> A3
+    
+    A3 --> Gate
+    Gate -- Saves novel proposals --> Q
+    Gate --> Doc1
+    Doc1 -- Uploads to Slack --> U
+    
+    %% Flow 2
+    U -- Replies in Thread --> A4
+    A4 -- Queries transcript --> Q
+    A4 --> Doc2
+    Doc2 -- Uploads updated file --> U
+    
+    %% Styling
+    classDef agent fill:#1F5F8A,stroke:#1A3A5C,stroke-width:2px,color:white;
+    classDef human fill:#E8F0FE,stroke:#1A73E8,stroke-width:2px,stroke-dasharray: 5 5;
+    classDef db fill:#34A853,stroke:#188038,stroke-width:2px,color:white;
+    
+    class A1,A2,A3,A4 agent;
+    class I1,I2,I3 human;
+    class Q db;
+```
 
 *For an in-depth breakdown of technical decisions, see [docs/decision_doc.md](docs/decision_doc.md).*
 

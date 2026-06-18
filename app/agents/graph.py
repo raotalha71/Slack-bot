@@ -16,7 +16,8 @@ from __future__ import annotations
 import logging
 from typing import Any, Literal
 
-from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
+import sqlite3
+from langgraph.checkpoint.sqlite import SqliteSaver
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import interrupt
 
@@ -220,8 +221,10 @@ def _get_checkpointer():
     global _checkpointer
     if _checkpointer is None:
         os.makedirs(os.path.dirname(_CHECKPOINT_DB_PATH), exist_ok=True)
-        _checkpointer = AsyncSqliteSaver.from_conn_string(_CHECKPOINT_DB_PATH)
-        logger.info("SQLite checkpointer created at %s", _CHECKPOINT_DB_PATH)
+        conn = sqlite3.connect(_CHECKPOINT_DB_PATH, check_same_thread=False)
+        _checkpointer = SqliteSaver(conn)
+        _checkpointer.setup()
+        logger.info("SQLite checkpointer created and setup at %s", _CHECKPOINT_DB_PATH)
     return _checkpointer
 
 

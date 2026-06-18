@@ -15,7 +15,7 @@ from slack_bolt.async_app import AsyncApp
 
 from app.services.proposal_service import ProposalService
 from app.slack.bot import get_slack_app
-from app.state.session_store import get_session, session_exists
+from app.state.session_store import get_session, get_sessions_by_user, session_exists
 from config import get_settings
 
 logger = logging.getLogger(__name__)
@@ -147,6 +147,7 @@ def register_handlers(app: AsyncApp) -> None:
         """
         # Ignore bot messages and non-thread messages
         if event.get("bot_id") or event.get("subtype"):
+            logger.info("Message ignored: bot_id=%s, subtype=%s", event.get("bot_id"), event.get("subtype"))
             return
 
         thread_ts = event.get("thread_ts")
@@ -154,13 +155,38 @@ def register_handlers(app: AsyncApp) -> None:
         user_id = event.get("user")
         text = event.get("text", "").strip()
 
-        if not thread_ts or not text or not channel_id:
+        logger.info(
+            "Message received: thread_ts=%s, channel=%s, user=%s, text='%s'",
+            thread_ts, channel_id, user_id, text,
+        )
+
+        if not text or not channel_id:
             return
 
-        # Look up session
-        session = get_session(thread_ts)
+        # Look up session — if no thread_ts (user replied in channel, not thread),
+        # fall back to the user's most recent active session
+        session = None
+        if thread_ts:
+            session = get_session(thread_ts)
+
+        if session is None and user_id:
+            # Fallback: find the most recent non-complete session for this user
+            user_sessions = get_sessions_by_user(user_id)
+            active = [
+                s for s in user_sessions
+                if s.status not in ("complete",)
+            ]
+            if active:
+                session = active[0]
+                thread_ts = session.thread_ts
+                logger.info(
+                    "No thread session found — using user's latest active session: thread_ts=%s, status=%s",
+                    thread_ts, session.status,
+                )
+
         if session is None:
-            return  # No active session for this thread
+            logger.info("No session found for thread_ts=%s / user=%s", thread_ts, user_id)
+            return
 
         status = session.status
         service = ProposalService(client, channel_id, thread_ts, user_id)

@@ -172,6 +172,8 @@ class ProposalService:
             resume_point: Which interrupt we're resuming ("intake", "search", "tone").
         """
         try:
+            from langgraph.types import Command
+
             graph = get_generation_graph()
 
             # Update session status
@@ -193,9 +195,11 @@ class ProposalService:
                 }.get(resume_point, "✅ Continuing...")
             )
 
-            # Resume the graph with the user's input
+            # Resume the graph from the interrupt using LangGraph's Command API.
+            # Command(resume=value) sends the value back to the interrupt() call
+            # that paused the graph, so the node continues from where it left off.
             async for event in graph.astream(
-                {"__interrupt__": user_input},  # Resume with user input
+                Command(resume=user_input),
                 config=self.graph_config,
             ):
                 await self._handle_graph_event(event)

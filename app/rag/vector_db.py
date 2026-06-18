@@ -17,7 +17,7 @@ from qdrant_client import QdrantClient
 from qdrant_client.http.models import (
     Distance,
     FieldCondition,
-    Filter,
+    Filter, 
     MatchValue,
     PointStruct,
     VectorParams,
@@ -44,12 +44,31 @@ class QdrantManager:
 
     def __init__(self) -> None:
         settings = get_settings()
-        self.client = QdrantClient(
-            host=settings.QDRANT_HOST,
-            port=settings.QDRANT_PORT,
-        )
         self.embedder = SentenceTransformer(settings.EMBEDDING_MODEL)
-        self.vector_size = self.embedder.get_sentence_embedding_dimension()
+        self.vector_size = self.embedder.get_embedding_dimension()
+        
+        try:
+            logger.info("Attempting to connect to Qdrant server at %s:%d...", settings.QDRANT_HOST, settings.QDRANT_PORT)
+            self.client = QdrantClient(
+                host=settings.QDRANT_HOST,
+                port=settings.QDRANT_PORT,
+                timeout=3.0,
+            )
+            # Access collections to verify connection
+            self.client.get_collections()
+            logger.info("Successfully connected to Qdrant server at %s:%d", settings.QDRANT_HOST, settings.QDRANT_PORT)
+        except Exception as e:
+            fallback_path = "./data/qdrant_db"
+            logger.warning(
+                "Could not connect to Qdrant server at %s:%d (%s). "
+                "Falling back to local disk-based Qdrant client at '%s'...",
+                settings.QDRANT_HOST,
+                settings.QDRANT_PORT,
+                str(e),
+                fallback_path,
+            )
+            self.client = QdrantClient(path=fallback_path)
+
         self._ensure_collections()
 
     # ------------------------------------------------------------------

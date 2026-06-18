@@ -16,7 +16,7 @@ from __future__ import annotations
 import logging
 from typing import Any, Literal
 
-from langgraph.checkpoint.memory import MemorySaver
+from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import interrupt
 
@@ -145,7 +145,7 @@ def route_after_research(
 # ---------------------------------------------------------------------------
 
 
-def build_generation_graph() -> Any:
+def build_generation_graph(checkpointer) -> Any:
     """
     Build and compile the initial proposal generation graph.
 
@@ -167,11 +167,10 @@ def build_generation_graph() -> Any:
     graph.add_edge("tone_node", "writer_node")
     graph.add_edge("writer_node", END)
 
-    # Compile with in-memory checkpointer (handles interrupts)
-    checkpointer = MemorySaver()
+    # Compile with persistent SQLite checkpointer (survives server reloads)
     compiled = graph.compile(checkpointer=checkpointer)
 
-    logger.info("Generation graph compiled")
+    logger.info("Generation graph compiled with persistent checkpointer")
     return compiled
 
 
@@ -180,7 +179,7 @@ def build_generation_graph() -> Any:
 # ---------------------------------------------------------------------------
 
 
-def build_revision_graph() -> Any:
+def build_revision_graph(checkpointer) -> Any:
     """
     Build and compile the revision graph.
 
@@ -192,26 +191,45 @@ def build_revision_graph() -> Any:
     graph.add_edge(START, "revision_node")
     graph.add_edge("revision_node", END)
 
-    checkpointer = MemorySaver()
     compiled = graph.compile(checkpointer=checkpointer)
 
-    logger.info("Revision graph compiled")
+    logger.info("Revision graph compiled with persistent checkpointer")
     return compiled
 
 
 # ---------------------------------------------------------------------------
-# Singletons (compiled once at startup)
+# Persistent checkpointer + Singletons
 # ---------------------------------------------------------------------------
 
+import os
+
+_CHECKPOINT_DB_PATH = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+    "data",
+    "langgraph_checkpoints.db",
+)
+
+# Shared persistent checkpointer — survives uvicorn --reload
+_checkpointer = None
 _generation_graph = None
 _revision_graph = None
+
+
+def _get_checkpointer():
+    """Get or create the persistent SQLite checkpointer."""
+    global _checkpointer
+    if _checkpointer is None:
+        os.makedirs(os.path.dirname(_CHECKPOINT_DB_PATH), exist_ok=True)
+        _checkpointer = AsyncSqliteSaver.from_conn_string(_CHECKPOINT_DB_PATH)
+        logger.info("SQLite checkpointer created at %s", _CHECKPOINT_DB_PATH)
+    return _checkpointer
 
 
 def get_generation_graph() -> Any:
     """Get or build the generation graph (singleton)."""
     global _generation_graph
     if _generation_graph is None:
-        _generation_graph = build_generation_graph()
+        _generation_graph = build_generation_graph(_get_checkpointer())
     return _generation_graph
 
 
@@ -219,7 +237,7 @@ def get_revision_graph() -> Any:
     """Get or build the revision graph (singleton)."""
     global _revision_graph
     if _revision_graph is None:
-        _revision_graph = build_revision_graph()
+        _revision_graph = build_revision_graph(_get_checkpointer())
     return _revision_graph
 
 

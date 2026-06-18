@@ -69,7 +69,7 @@ class ProposalService:
         today = date.today().strftime("%Y-%m-%d")
         filename = f"Proposal_{company}_{today}.docx".replace(" ", "_")
 
-        await self.client.files_upload_v2(
+        response = await self.client.files_upload_v2(
             channel=self.channel_id,
             thread_ts=self.thread_ts,
             content=docx_bytes,
@@ -77,6 +77,38 @@ class ProposalService:
             title=f"Proposal for {company}",
             initial_comment="📄 Here's your proposal! Let me know if you'd like any changes.",
         )
+
+        try:
+            # Map the message timestamp of the file upload to the session database
+            # so replies to the file block are routed to this proposal's session.
+            file_obj = response.get("file", {})
+            shares = file_obj.get("shares", {})
+            ts = None
+            for share_type in ["public", "private"]:
+                share_list = shares.get(share_type, {}).get(self.channel_id, [])
+                if share_list:
+                    ts = share_list[0].get("ts")
+                    break
+
+            if ts and ts != self.thread_ts and not session_exists(ts):
+                logger.info("Creating file upload session link for ts=%s (parent thread_ts=%s)", ts, self.thread_ts)
+                parent_session = get_session(self.thread_ts)
+                if parent_session:
+                    create_session(
+                        thread_ts=ts,
+                        channel_id=self.channel_id,
+                        user_id=self.user_id,
+                        state=parent_session.get_state(),
+                        transcript_text=parent_session.transcript_text,
+                    )
+                    update_session(
+                        thread_ts=ts,
+                        status=parent_session.status,
+                        draft=parent_session.current_draft,
+                    )
+        except Exception as e:
+            logger.warning("Failed to link file upload timestamp to session: %s", str(e), exc_info=True)
+
 
     def _build_initial_state(self, transcript: str) -> dict[str, Any]:
         """Build the initial ProposalState for a new pipeline run."""

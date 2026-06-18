@@ -170,7 +170,7 @@ def register_handlers(app: AsyncApp) -> None:
         if thread_ts:
             session = get_session(thread_ts)
 
-        if session is None and user_id:
+        if session is None and thread_ts is None and user_id:
             # Fallback: find the user's latest session, prioritizing active ones
             user_sessions = get_sessions_by_user(user_id)
             if user_sessions:

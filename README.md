@@ -8,7 +8,7 @@ A multi-agent AI system that automatically generates professional business propo
 - **Human-in-the-Loop:** Pauses at key decision points for user confirmation (intake extraction, web search approval, tone selection).
 - **Self-Learning RAG:** Automatically saves novel generated proposals back to Qdrant to improve future context.
 - **Smart Save Gate:** Deduplicates proposals before saving to keep the vector database clean (skips if similarity > 0.85).
-- **Web Search Fallback:** Uses Tavily API to search the internet if the internal knowledge base lacks context. Runs asynchronously in a background thread to prevent event loop blocking.
+- **Web Search Fallback:** Uses Tavily API to search the internet if the internal knowledge base lacks context. Executes 2 distinct search queries (industry best practices & market trends/challenges) retrieving up to **5 results per query** (total **10 web results**). Runs asynchronously in a background thread to prevent event loop blocking.
 - **Zero-Docker Qdrant Fallback:** Automatically falls back to a disk-based Qdrant client (`data/qdrant_db`) if no Docker instance of Qdrant is running.
 - **Thread Isolation & Link Mapping:** Resolves Slack's nested thread constraints by linking document file shares directly to original database sessions while isolating thread messages to prevent cross-wiring.
 - **Cross-Session Memory:** Remembers transcripts and drafts via an SQLite session store, even if the user returns days later.
@@ -81,6 +81,18 @@ graph TD
     class I1,I2,I3 human;
     class Q db;
 ```
+
+### 🤖 LLM Model & Prompt Map
+
+The pipeline utilizes **Groq Llama 3.3 (70B)** (`llama-3.3-70b-versatile`) for all cognitive tasks. Below is the exact location, parameter strategy, and purpose for each LLM call:
+
+| Pipeline Step | Location | Model Used | Temp | Prompt & Input Context |
+| :--- | :--- | :--- | :--- | :--- |
+| **Intake Extraction** | [intake.py](file:///home/talha/Assessment/Slack-bot/app/agents/intake.py) | `llama-3.3-70b-versatile` | `0.0` (Deterministic) | Parses call transcripts into structured client profiles (goals, timeline, budget) using JSON schema instructions. |
+| **Proposal Synthesis** | [writer.py](file:///home/talha/Assessment/Slack-bot/app/agents/writer.py) | `llama-3.3-70b-versatile` | `0.7` (Creative) | Synthesizes client profile, chosen tone instructions, and RAG/Web results into a complete, custom markdown proposal. |
+| **Revision Classifier** | [revision.py](file:///home/talha/Assessment/Slack-bot/app/agents/revision.py) | `llama-3.3-70b-versatile` | `0.0` (Deterministic) | Classifies slack thread messages into `question` or `edit` categories using JSON schemas. |
+| **Transcript Q&A** | [revision.py](file:///home/talha/Assessment/Slack-bot/app/agents/revision.py) | `llama-3.3-70b-versatile` | `0.0` (Deterministic) | Answers specific questions using local semantic chunks retrieved from the transcript database. |
+| **Surgical Editor** | [revision.py](file:///home/talha/Assessment/Slack-bot/app/agents/revision.py) | `llama-3.3-70b-versatile` | `0.0` (Deterministic) | Rewrites a single target proposal header/body block using the user's requested modifications. |
 
 ### 🧩 Detailed Node Architecture
 

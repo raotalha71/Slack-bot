@@ -1,0 +1,19 @@
+Sarah: Thanks for joining the call today, everyone. I want to make sure I have a clear understanding of your requirements for the new patient scheduling and portal system so I can draft a detailed proposal.
+
+Dr. Evans: Thanks, Sarah. Currently, our clinic, Evans Medical Group, is struggling. We run three family medicine clinics, and our patient booking system is incredibly manual. Patients have to call in, and our receptionists spend half their day on the phone just coordinate slots. It leads to long hold times and double bookings.
+
+Linda: Yes, and as the Practice Manager, I can tell you it's a nightmare. We also have no way to send automated text/email reminders, so our no-show rate is around 18%. We need a modern, patient-facing portal where patients can book, reschedule, and fill out intake forms online.
+
+Sarah: Understood. Evans Medical Group is in the healthcare/medical clinic industry. What are the key goals for this system?
+
+Dr. Evans: The primary goal is to cut down patient no-shows to under 5%, automate booking, and reduce reception phone workload by at least 50%.
+
+Linda: Also, it must integrate securely with our existing Electronic Health Record (EHR) system, which is Athenahealth, and comply fully with HIPAA regulations.
+
+Sarah: Perfect. And what is your target budget and timeline for this?
+
+Dr. Evans: Budget-wise, we have approved up to $80,000 for the implementation. We would like to go live by October 1st, so roughly 4 months from now.
+
+Linda: We also need Marcus, our IT director, to be looped in for the security audit, and Dr. Evans is the primary decision-maker.
+
+Sarah: Excellent. I have company name, industry (healthcare/medical clinic), problem, goals, budget ($80,000), timeline (October 1st), and stakeholders (Dr. Evans, Linda, Marcus). I will compile this into a proposal.

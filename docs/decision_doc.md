@@ -223,6 +223,16 @@ The assessment explicitly requires "human oversight at key decision points." The
 
 ---
 
+### 6.2 SQLite for LangGraph Checkpointing (AsyncSqliteSaver)
+
+**Decision:** Use `aiosqlite` and LangGraph's `AsyncSqliteSaver` checkpointer to store active graph states, rather than `MemorySaver`.
+
+**Reasoning:**
+- **Survives Process Restarts:** In-memory checkpointers wipe active graphs whenever uvicorn reloads or the app restarts. By using SQLite persistence, active user confirmations, web search decisions, and tone selection prompts remain active even after code reloads.
+- **Asynchronous Flow Integration:** The checkpointer integrates cleanly with FastAPI's async loops, saving checkpoints to `data/langgraph_checkpoints.db`.
+
+---
+
 ## 7. Document Generation Decisions
 
 ### 7.1 Markdown → DOCX Conversion
@@ -242,7 +252,36 @@ The assessment explicitly requires "human oversight at key decision points." The
 
 ---
 
-## 8. Trade-offs and Known Limitations
+## 8. Advanced Slack-Specific Fixes & Engineering Decisions
+
+### 8.1 Thread Isolation
+
+**Decision:** Restrict the session fallback logic to messages received in the **main channel** (`thread_ts is None`). If a user replies inside a thread, the bot will strictly look up that specific thread's session in the database.
+
+**Reasoning:**
+If a user replies in thread A, and thread A's session is not registered, the old fallback would map the message to thread B's active session. This caused cross-wiring where messages from one thread hijacked inputs for another. Disabling fallback for explicit threads isolates session context correctly.
+
+---
+
+### 8.2 File Upload Link Mapping
+
+**Decision:** Capture the message timestamp (`ts`) returned by the `files_upload_v2` API response when posting the generated `.docx` file, and record a duplicate/redirect session mapping in SQLite under that `ts`.
+
+**Reasoning:**
+In Slack, when a user replies to the file block itself, Slack treats the file share message as a new thread (yielding a new `thread_ts` pointing to the file message timestamp). Without link mapping, these replies are ignored. Copying the session under the file upload's timestamp allows the user to ask follow-up questions directly on the file block block.
+
+---
+
+### 8.3 Non-Blocking Web Search Execution
+
+**Decision:** Execute Tavily Client synchronous search requests within `asyncio.to_thread()` pools.
+
+**Reasoning:**
+Tavily client calls perform synchronous HTTP requests. Executing blocking calls directly within async handlers blocks FastAPI's event loop, causing webhook delivery timeouts from Slack. Thread pool offloading keeps the API responsive.
+
+---
+
+## 9. Trade-offs and Known Limitations
 
 ### What We Traded Off
 
@@ -256,11 +295,11 @@ The assessment explicitly requires "human oversight at key decision points." The
 ### Known Limitations
 
 1. **Single-worker:** The FastAPI app runs with `--workers 1` because SQLite doesn't handle concurrent writes well. For production, switch to PostgreSQL.
-2. **In-memory checkpointer:** LangGraph's `MemorySaver` doesn't survive process restarts. For production, use `SqliteSaver` or `PostgresSaver`.
-3. **No authentication:** The Slack bot responds to any user in the channel. For production, add user allowlisting.
-4. **Embedding model is English-only:** `all-MiniLM-L6-v2` performs best on English text. Multilingual support would require `paraphrase-multilingual-MiniLM-L12-v2`.
+2. **No authentication:** The Slack bot responds to any user in the channel. For production, add user allowlisting.
+3. **Embedding model is English-only:** `all-MiniLM-L6-v2` performs best on English text. Multilingual support would require `paraphrase-multilingual-MiniLM-L12-v2`.
 
 ---
+
 
 ## 9. Assessment Requirement Mapping
 

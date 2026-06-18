@@ -42,7 +42,19 @@ class QdrantManager:
     and revision updates across two collections.
     """
 
+    _instance = None
+
+    def __new__(cls, *args, **kwargs) -> QdrantManager:
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls._instance._initialized = False
+        return cls._instance
+
     def __init__(self) -> None:
+        if getattr(self, "_initialized", False):
+            return
+        self._initialized = True
+
         settings = get_settings()
         self.embedder = SentenceTransformer(settings.EMBEDDING_MODEL)
         self.vector_size = self.embedder.get_embedding_dimension()
@@ -165,9 +177,9 @@ class QdrantManager:
         """
         query_vector = self._embed_single(query)
 
-        results = self.client.search(
+        response = self.client.query_points(
             collection_name=collection,
-            query_vector=query_vector,
+            query=query_vector,
             limit=top_k,
             query_filter=filters,
         )
@@ -183,7 +195,7 @@ class QdrantManager:
                 "source": r.payload.get("source", ""),
                 "thread_ts": r.payload.get("thread_ts", ""),
             }
-            for r in results
+            for r in response.points
         ]
 
     def search_with_metadata_filter(

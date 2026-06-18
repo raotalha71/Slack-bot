@@ -141,7 +141,7 @@ class ProposalService:
             ingest_transcript(qdrant, transcript_text, self.thread_ts)
 
             # Run the graph — will stop at first interrupt (intake confirmation)
-            graph = get_generation_graph()
+            graph = await get_generation_graph()
             initial_state = self._build_initial_state(transcript_text)
 
             async for event in graph.astream(
@@ -174,7 +174,7 @@ class ProposalService:
         try:
             from langgraph.types import Command
 
-            graph = get_generation_graph()
+            graph = await get_generation_graph()
 
             # Update session status
             status_map = {
@@ -233,7 +233,7 @@ class ProposalService:
             update_session(self.thread_ts, status="revising")
 
             # Run revision graph
-            graph = get_revision_graph()
+            graph = await get_revision_graph()
             final_state = None
 
             async for event in graph.astream(

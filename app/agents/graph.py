@@ -16,8 +16,8 @@ from __future__ import annotations
 import logging
 from typing import Any, Literal
 
-import sqlite3
-from langgraph.checkpoint.sqlite import SqliteSaver
+import aiosqlite
+from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import interrupt
 
@@ -216,31 +216,32 @@ _generation_graph = None
 _revision_graph = None
 
 
-def _get_checkpointer():
+async def _get_checkpointer():
     """Get or create the persistent SQLite checkpointer."""
     global _checkpointer
     if _checkpointer is None:
         os.makedirs(os.path.dirname(_CHECKPOINT_DB_PATH), exist_ok=True)
-        conn = sqlite3.connect(_CHECKPOINT_DB_PATH, check_same_thread=False)
-        _checkpointer = SqliteSaver(conn)
-        _checkpointer.setup()
-        logger.info("SQLite checkpointer created and setup at %s", _CHECKPOINT_DB_PATH)
+        conn = await aiosqlite.connect(_CHECKPOINT_DB_PATH)
+        _checkpointer = AsyncSqliteSaver(conn)
+        logger.info("SQLite async checkpointer created at %s", _CHECKPOINT_DB_PATH)
     return _checkpointer
 
 
-def get_generation_graph() -> Any:
+async def get_generation_graph() -> Any:
     """Get or build the generation graph (singleton)."""
     global _generation_graph
     if _generation_graph is None:
-        _generation_graph = build_generation_graph(_get_checkpointer())
+        checkpointer = await _get_checkpointer()
+        _generation_graph = build_generation_graph(checkpointer)
     return _generation_graph
 
 
-def get_revision_graph() -> Any:
+async def get_revision_graph() -> Any:
     """Get or build the revision graph (singleton)."""
     global _revision_graph
     if _revision_graph is None:
-        _revision_graph = build_revision_graph(_get_checkpointer())
+        checkpointer = await _get_checkpointer()
+        _revision_graph = build_revision_graph(checkpointer)
     return _revision_graph
 
 

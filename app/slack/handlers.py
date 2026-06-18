@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import httpx
 
 from slack_bolt.async_app import AsyncApp
 
@@ -73,7 +74,7 @@ def register_handlers(app: AsyncApp) -> None:
                 return
 
             settings = get_settings()
-            import httpx
+            
             async with httpx.AsyncClient() as http:
                 resp = await http.get(
                     url,
@@ -170,17 +171,23 @@ def register_handlers(app: AsyncApp) -> None:
             session = get_session(thread_ts)
 
         if session is None and user_id:
-            # Fallback: find the most recent non-complete session for this user
+            # Fallback: find the user's latest session, prioritizing active ones
             user_sessions = get_sessions_by_user(user_id)
-            active = [
-                s for s in user_sessions
-                if s.status not in ("complete",)
-            ]
-            if active:
-                session = active[0]
+            if user_sessions:
+                # First try to find a session that is still active (not complete/error)
+                active = [
+                    s for s in user_sessions
+                    if s.status not in ("complete", "error")
+                ]
+                if active:
+                    session = active[0]
+                else:
+                    # Fall back to the absolute most recent session (even if complete)
+                    session = user_sessions[0]
+                
                 thread_ts = session.thread_ts
                 logger.info(
-                    "No thread session found — using user's latest active session: thread_ts=%s, status=%s",
+                    "No thread session found — using user's latest session: thread_ts=%s, status=%s",
                     thread_ts, session.status,
                 )
 

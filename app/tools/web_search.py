@@ -40,6 +40,8 @@ async def search_industry_context(
         return []
 
     try:
+        import asyncio
+
         from tavily import TavilyClient
 
         client = TavilyClient(api_key=settings.TAVILY_API_KEY)
@@ -53,7 +55,11 @@ async def search_industry_context(
         all_results: list[dict[str, Any]] = []
 
         for query in queries:
-            response = client.search(
+            logger.info("Web search query: %s", query)
+            # TavilyClient.search() is synchronous — run in thread pool
+            # to avoid blocking the async event loop
+            response = await asyncio.to_thread(
+                client.search,
                 query=query,
                 max_results=max_results,
                 search_depth="basic",
@@ -80,5 +86,6 @@ async def search_industry_context(
         logger.error("tavily-python not installed. Run: pip install tavily-python")
         return []
     except Exception as e:
-        logger.error("Web search failed: %s", str(e))
+        logger.error("Web search failed: %s", str(e), exc_info=True)
         return []
+

@@ -1,0 +1,19 @@
+Sarah: Thanks for jumping on the call today, everyone. I want to make sure I capture the specifications for your automated crop analytics platform so I can draft a detailed proposal.
+
+Dr. Vance: Thanks, Sarah. Currently, Ceres Aero-Imaging is facing a bottleneck. We manage aerial monitoring for large-scale agricultural enterprises, covering over 500,000 acres. Right now, our agronomists have to manually inspect multispectral drone imagery, stitching maps together and manually identifying areas of crop disease, water stress, or nutrient deficiency. It takes days to deliver reports to farmers, by which time the crop damage has already spread.
+
+Liam: Exactly. As the Operations Lead, I need this to be a streamlined cloud platform. We want farmers to upload their raw drone GeoTIFF files, and have the system automatically process the orthomosaics, calculate NDVI (Normalized Difference Vegetation Index) maps, and use machine learning to segment areas of crop stress. We need to cut reporting turnaround from 5 days down to under 2 hours.
+
+Sarah: Understood. Ceres Aero-Imaging is in the precision agriculture / agritech industry. What are the key goals and integration requirements?
+
+Dr. Vance: The main goal is automating the imagery processing pipeline and detecting crop stress with at least 92% accuracy. It must also integrate with popular farm management software like John Deere Operations Center.
+
+Liam: And from an infrastructure standpoint, it needs to support concurrent uploads of files up to 10GB since raw multispectral images are huge.
+
+Sarah: Perfect. And what is your target budget and timeline for this?
+
+Dr. Vance: Budget is capped at $180,000. We need a beta release ready for testing before the spring planting season starts, which is exactly 6 months from now.
+
+Liam: For stakeholders, Dr. Vance is the primary business owner, I am the operations lead, and we have Marcus in IT who needs to review the cloud storage security architecture.
+
+Sarah: Got it. I have company name (Ceres Aero-Imaging), industry (precision agriculture / agritech), problem statement, goals, budget ($180,000), timeline (6 months), and stakeholders (Dr. Vance, Liam, Marcus). I will draft the proposal.
